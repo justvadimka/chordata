@@ -8,7 +8,7 @@ import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
 import java.util.Objects;
 
-public class BooleanProperty extends Property {
+public final class BooleanProperty extends Property {
 
   public static final Serializer<BooleanProperty> SERIALIZER = new BooleanPropertySerializer();
   public static final int PROPERTY_TYPE = 5;

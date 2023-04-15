@@ -2,6 +2,8 @@ package chordata.properties;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.twitter.serial.serializer.ObjectSerializer;
@@ -13,8 +15,16 @@ import java.io.IOException;
 import java.util.Objects;
 
 @JsonPropertyOrder({"name"})
-@JsonTypeInfo(use = Id.CLASS, property = "@class")
-public abstract class Property {
+@JsonTypeInfo(use = Id.DEDUCTION)
+@JsonSubTypes({
+    @Type(BooleanProperty.class),
+    @Type(DoubleProperty.class),
+    @Type(StringProperty.class),
+    @Type(StringListProperty.class),
+    @Type(UnknownProperty.class)
+})
+public abstract sealed class Property permits BooleanProperty, DoubleProperty, StringProperty,
+    StringListProperty, UnknownProperty {
 
   public static final Serializer<Property> SERIALIZER = new PropertySerializer();
 

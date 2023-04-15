@@ -8,7 +8,7 @@ import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
 import java.util.Objects;
 
-public class DoubleProperty extends Property {
+public final class DoubleProperty extends Property {
 
   public static final Serializer<DoubleProperty> SERIALIZER = new DoublePropertySerializer();
   public static final int PROPERTY_TYPE = 3;

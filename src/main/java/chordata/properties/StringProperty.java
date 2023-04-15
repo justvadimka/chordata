@@ -8,7 +8,7 @@ import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
 import java.util.Objects;
 
-public class StringProperty extends Property {
+public final class StringProperty extends Property {
 
   public static final Serializer<StringProperty> SERIALIZER = new StringPropertySerializer();
   public static final int PROPERTY_TYPE = 6;

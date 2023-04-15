@@ -8,21 +8,21 @@ import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
 import java.util.Objects;
 
-public class UnknownProperty extends Property {
+public final class UnknownProperty extends Property {
 
   public static final Serializer<UnknownProperty> SERIALIZER = new UnknownPropertySerializer();
 
-  @JsonProperty("values")
+  @JsonProperty("unknown")
   public final ValuesHolder values;
 
   @JsonProperty("propertyType")
   public int propertyType;
 
-  public UnknownProperty(ValuesHolder values) {
+  UnknownProperty(ValuesHolder values) {
     this.values = values;
   }
 
-  public UnknownProperty(@JsonProperty("values") ValuesHolder values,
+  public UnknownProperty(@JsonProperty("unknown") ValuesHolder values,
       @JsonProperty("propertyType") int propertyType) {
     this.values = values;
     this.propertyType = propertyType;

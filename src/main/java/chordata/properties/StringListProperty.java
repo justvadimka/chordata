@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StringListProperty extends Property {
+public final class StringListProperty extends Property {
 
   public static final Serializer<StringListProperty> SERIALIZER = new StringListPropertySerializer();
   public static final int PROPERTY_TYPE = 7;
