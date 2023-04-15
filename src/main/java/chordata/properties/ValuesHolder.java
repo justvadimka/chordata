@@ -28,7 +28,7 @@ public class ValuesHolder {
   public static final Serializer<ValuesHolder> SERIALIZER = new ValuesHolderSerializer();
 
   @JsonValue
-  public final List<Primitive> values;  // can contain nulls.
+  public final List<Primitive> values;
 
   @JsonCreator
   public ValuesHolder(List<Primitive> values) {
