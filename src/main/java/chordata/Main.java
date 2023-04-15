@@ -100,8 +100,7 @@ public class Main {
   }
 
   private static void processJsonFile(InputStream inputStream, OutputStream out, Serial serial,
-      ObjectMapper objectMapper)
-      throws Exception {
+      ObjectMapper objectMapper) throws Exception {
     Root root = objectMapper.readValue(inputStream, Root.class);
 
     byte[] arr = serial.toByteArray(root, Root.SERIALIZER);
