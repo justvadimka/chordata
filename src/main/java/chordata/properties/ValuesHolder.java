@@ -11,7 +11,8 @@ import chordata.properties.primitive.LongPrimitive;
 import chordata.properties.primitive.NullPrimitive;
 import chordata.properties.primitive.Primitive;
 import chordata.properties.primitive.StringPrimitive;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.twitter.serial.serializer.SerializationContext;
 import com.twitter.serial.serializer.Serializer;
 import com.twitter.serial.stream.SerializerDefs;
@@ -22,12 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @param values can contain nulls.
- */
-public record ValuesHolder(@JsonProperty("values") List<Primitive> values) {
+public class ValuesHolder {
 
   public static final Serializer<ValuesHolder> SERIALIZER = new ValuesHolderSerializer();
+
+  @JsonValue
+  public final List<Primitive> values;  // can contain nulls.
+
+  @JsonCreator
+  public ValuesHolder(List<Primitive> values) {
+    this.values = values;
+  }
 
   private static class ValuesHolderSerializer extends Serializer<ValuesHolder> {
 
