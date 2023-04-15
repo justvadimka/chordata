@@ -4,7 +4,6 @@ import chordata.properties.Root;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twitter.serial.stream.Serial;
 import com.twitter.serial.stream.bytebuffer.ByteBufferSerial;
-import com.twitter.serial.util.SerializationUtils;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -94,10 +93,10 @@ public class Main {
   private static void processBinaryFile(InputStream inputStream, OutputStream out, Serial serial,
       ObjectMapper objectMapper) throws Exception {
     byte[] arr = inputStream.readAllBytes();
-    SerializationUtils.dumpSerializedData(arr);
     Root root = serial.fromByteArray(arr, Root.SERIALIZER);
 
-    objectMapper.writerWithDefaultPrettyPrinter().writeValue(out, root);
+    objectMapper.writerWithDefaultPrettyPrinter()
+        .writeValue(out, root);
   }
 
   private static void processJsonFile(InputStream inputStream, OutputStream out, Serial serial,
