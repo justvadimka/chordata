@@ -6,6 +6,7 @@ import com.twitter.serial.serializer.Serializer;
 import com.twitter.serial.stream.SerializerInput;
 import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
+import java.util.Objects;
 
 public class StringProperty extends Property {
 
@@ -35,6 +36,7 @@ public class StringProperty extends Property {
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
         StringProperty property) throws IOException {
+      Objects.requireNonNull(property);
       output.writeString(property.value);
     }
 
