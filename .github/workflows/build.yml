@@ -15,8 +15,9 @@ jobs:
           distribution: 'zulu'
       - name: Maven build
         run: mvn package
+      - run: mv target/chordata-1.0-SNAPSHOT-jar-with-dependencies.jar target/chordata.jar
       - name: Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: chordata.jar
-          path: target/chordata-1.0-SNAPSHOT-jar-with-dependencies.jar
+          path: target/chordata.jar
