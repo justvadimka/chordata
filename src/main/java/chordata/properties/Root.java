@@ -1,5 +1,6 @@
 package chordata.properties;
 
+import chordata.ChordataException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.twitter.serial.serializer.ObjectSerializer;
 import com.twitter.serial.serializer.SerializationContext;
@@ -15,6 +16,12 @@ public record Root(@JsonProperty("propertiesHolder") PropertiesHolder properties
 
   private static final class RootSerializer extends ObjectSerializer<Root> {
 
+    private static final int VERSION = 0;
+
+    public RootSerializer() {
+      super(VERSION);
+    }
+
     @Override
     protected void serializeObject(SerializationContext context, SerializerOutput output,
         Root root) throws IOException {
@@ -25,6 +32,12 @@ public record Root(@JsonProperty("propertiesHolder") PropertiesHolder properties
     @Override
     protected Root deserializeObject(SerializationContext context, SerializerInput input,
         int versionNumber) throws IOException, ClassNotFoundException {
+      if (versionNumber != VERSION) {
+        throw new ChordataException(
+            String.format("Cannot deserialize Root of version %d. Expected version %d",
+                versionNumber, VERSION));
+      }
+
       PropertiesHolder propertiesHolder = input.readObject(context, PropertiesHolder.SERIALIZER);
       ValuesHolder unknownValues = input.readObject(context, ValuesHolder.SERIALIZER);
       return new Root(propertiesHolder, unknownValues);

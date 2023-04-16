@@ -1,5 +1,6 @@
 package chordata.properties;
 
+import chordata.ChordataException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -42,10 +43,10 @@ public abstract sealed class Property permits BooleanProperty, DoubleProperty, S
 
   static class PropertySerializer extends ObjectSerializer<Property> {
 
-    private static int VERSION_NUMBER = 1;
+    private static int VERSION = 1;
 
     PropertySerializer() {
-      super(VERSION_NUMBER);
+      super(VERSION);
     }
 
     @Override
@@ -59,6 +60,12 @@ public abstract sealed class Property permits BooleanProperty, DoubleProperty, S
     @Override
     protected Property deserializeObject(SerializationContext context, SerializerInput input,
         int versionNumber) throws IOException, ClassNotFoundException {
+      if (versionNumber != VERSION) {
+        throw new ChordataException(
+            String.format("Cannot deserialize Property of version %d. Expected version %d",
+                versionNumber, VERSION));
+      }
+
       String name = input.readString();
       int propertyType = input.readInt();
 

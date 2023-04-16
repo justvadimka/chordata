@@ -1,5 +1,6 @@
 package chordata.properties;
 
+import chordata.ChordataException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.twitter.serial.serializer.ObjectSerializer;
 import com.twitter.serial.serializer.SerializationContext;
@@ -17,6 +18,12 @@ public record PropertiesHolder(@JsonProperty("properties") List<Property> proper
 
   private static final class PropertiesHolderSerializer extends ObjectSerializer<PropertiesHolder> {
 
+    private static final int VERSION = 0;
+
+    public PropertiesHolderSerializer() {
+      super(VERSION);
+    }
+
     @Override
     protected void serializeObject(SerializationContext context, SerializerOutput output,
         PropertiesHolder propertiesHolder) throws IOException {
@@ -32,6 +39,12 @@ public record PropertiesHolder(@JsonProperty("properties") List<Property> proper
     @Override
     protected PropertiesHolder deserializeObject(SerializationContext context,
         SerializerInput input, int versionNumber) throws IOException, ClassNotFoundException {
+      if (versionNumber != VERSION) {
+        throw new ChordataException(
+            String.format("Cannot deserialize PropertiesHolder of version %d. Expected version %d",
+                versionNumber, VERSION));
+      }
+
       int count = input.readInt();
       List<Property> properties = new ArrayList<>(count);
       for (int i = 0; i < count; i++) {
