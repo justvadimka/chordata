@@ -13,7 +13,6 @@ import com.twitter.serial.serializer.Serializer;
 import com.twitter.serial.stream.SerializerInput;
 import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
-import java.util.Objects;
 
 @JsonPropertyOrder({"name"})
 @JsonTypeInfo(use = Id.DEDUCTION)
@@ -77,7 +76,6 @@ public abstract sealed class Property permits BooleanProperty, DoubleProperty, S
             input.readObject(context, StringListProperty.SERIALIZER);
         default -> {
           UnknownProperty unknownProperty = input.readObject(context, UnknownProperty.SERIALIZER);
-          Objects.requireNonNull(unknownProperty);
           unknownProperty.setPropertyType(propertyType);
           yield unknownProperty;
         }
