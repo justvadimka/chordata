@@ -9,6 +9,9 @@ rm -f "chordata.jar"
 cp "../target/chordata-1.0-SNAPSHOT-jar-with-dependencies.jar" "chordata.jar" || \
   { echo "Run 'mvn package' first" && exit 2; }
 
+# Removing the built jar file to enforce new builds.
+rm "../target/chordata-1.0-SNAPSHOT-jar-with-dependencies.jar"
+
 rm *.bin
 rm *.json
 
