@@ -40,7 +40,8 @@ public class ValuesHolder {
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
         ValuesHolder valuesHolder) throws IOException {
-      Objects.requireNonNull(valuesHolder);
+      Objects.requireNonNull(valuesHolder, "'valuesHolder' is required");
+      
       for (Primitive p : valuesHolder.values) {
         p.writeValue(output);
       }

@@ -9,19 +9,17 @@ import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public record PropertiesHolder(@JsonProperty("properties") List<Property> properties,
                                @JsonProperty("unknown") ValuesHolder unknownValues) {
 
-  public static final Serializer<PropertiesHolder> SERIALIZER = new PropertiesSerializer();
+  public static final Serializer<PropertiesHolder> SERIALIZER = new PropertiesHolderSerializer();
 
-  private static final class PropertiesSerializer extends ObjectSerializer<PropertiesHolder> {
+  private static final class PropertiesHolderSerializer extends ObjectSerializer<PropertiesHolder> {
 
     @Override
     protected void serializeObject(SerializationContext context, SerializerOutput output,
         PropertiesHolder propertiesHolder) throws IOException {
-      Objects.requireNonNull(propertiesHolder);
       List<Property> properties = propertiesHolder.properties;
       output.writeInt(properties.size());
       for (Property p : properties) {

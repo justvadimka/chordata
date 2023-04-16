@@ -35,9 +35,10 @@ public final class DoubleProperty extends Property {
 
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
-        DoubleProperty property) throws IOException {
-      Objects.requireNonNull(property);
-      output.writeDouble(property.value);
+        DoubleProperty doubleProperty) throws IOException {
+      Objects.requireNonNull(doubleProperty, "'doubleProperty' is required");
+
+      output.writeDouble(doubleProperty.value);
     }
 
     @Override

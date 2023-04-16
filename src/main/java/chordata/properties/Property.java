@@ -51,7 +51,6 @@ public abstract sealed class Property permits BooleanProperty, DoubleProperty, S
     @Override
     protected void serializeObject(SerializationContext context, SerializerOutput output,
         Property property) throws IOException {
-      Objects.requireNonNull(property);
       output.writeString(property.name);
       output.writeInt(property.getPropertyType());
       property.serializeProperties(context, output);

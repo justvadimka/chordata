@@ -7,7 +7,6 @@ import com.twitter.serial.serializer.Serializer;
 import com.twitter.serial.stream.SerializerInput;
 import com.twitter.serial.stream.SerializerOutput;
 import java.io.IOException;
-import java.util.Objects;
 
 public record Root(@JsonProperty("propertiesHolder") PropertiesHolder propertiesHolder,
                    @JsonProperty("unknown") ValuesHolder unknownValues) {
@@ -19,7 +18,6 @@ public record Root(@JsonProperty("propertiesHolder") PropertiesHolder properties
     @Override
     protected void serializeObject(SerializationContext context, SerializerOutput output,
         Root root) throws IOException {
-      Objects.requireNonNull(root);
       output.writeObject(context, root.propertiesHolder, PropertiesHolder.SERIALIZER);
       output.writeObject(context, root.unknownValues, ValuesHolder.SERIALIZER);
     }

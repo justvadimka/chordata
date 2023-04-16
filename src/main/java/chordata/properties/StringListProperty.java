@@ -41,10 +41,11 @@ public final class StringListProperty extends Property {
 
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
-        StringListProperty property) throws IOException {
-      Objects.requireNonNull(property);
-      output.writeInt(property.entries.size());
-      for (Entry entry : property.entries) {
+        StringListProperty stringListProperty) throws IOException {
+      Objects.requireNonNull(stringListProperty, "'stringListProperty' is required");
+
+      output.writeInt(stringListProperty.entries.size());
+      for (Entry entry : stringListProperty.entries) {
         output.writeInt(entry.number);
         output.writeString(entry.text);
       }

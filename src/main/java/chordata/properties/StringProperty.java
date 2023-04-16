@@ -35,9 +35,10 @@ public final class StringProperty extends Property {
 
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
-        StringProperty property) throws IOException {
-      Objects.requireNonNull(property);
-      output.writeString(property.value);
+        StringProperty stringProperty) throws IOException {
+      Objects.requireNonNull(stringProperty, "'stringProperty' is required");
+      
+      output.writeString(stringProperty.value);
     }
 
     @Override

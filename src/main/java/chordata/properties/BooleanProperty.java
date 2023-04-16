@@ -35,9 +35,10 @@ public final class BooleanProperty extends Property {
 
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
-        BooleanProperty property) throws IOException {
-      Objects.requireNonNull(property);
-      output.writeBoolean(property.value);
+        BooleanProperty booleanProperty) throws IOException {
+      Objects.requireNonNull(booleanProperty, "'booleanProperty' is required");
+
+      output.writeBoolean(booleanProperty.value);
     }
 
     @Override

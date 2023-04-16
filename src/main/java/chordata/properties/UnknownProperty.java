@@ -48,7 +48,8 @@ public final class UnknownProperty extends Property {
     @Override
     public void serialize(SerializationContext context, SerializerOutput output,
         UnknownProperty unknownProperty) throws IOException {
-      Objects.requireNonNull(unknownProperty);
+      Objects.requireNonNull(unknownProperty, "'unknownProperty' is required");
+      
       output.writeObject(context, unknownProperty.values, ValuesHolder.SERIALIZER);
     }
 
